@@ -1,39 +1,16 @@
-var times = 10000,
-    guesses = [];
-
-while(times--){
-    guesses.push(hilo().length);
-}
-
-guesses.sort();
-
-console.log("quickest", guesses[0]);
-console.log("longest", guesses[guesses.length-1]);
-
-var sum = guesses.reduce(function(prev, curr){
-    return prev += curr;
-}, 0);
-
-console.log("total guesses", sum);
-console.log("average", sum / guesses.length);
-
-
-
-function hilo() {
 
     var min = 1,
-        max = 100000000,
+        max = 100,
         guesses = [],
         num = randomNum(max),
         found = false;
 
-    //console.log("secret number", num);
+    console.log("secret number", num);
 
     while (!found) {
         guess();
     }
 
-    return guesses;
 
     function guess() {
         var low = getHighestLow(),
@@ -42,13 +19,9 @@ function hilo() {
                 num: low + Math.floor((high - low) / 2)
             };
 
-        if (guesses.filter(function (guess) {
-            return guess.num === current.num;
-        }).length) current.num += 1;
-
-        if (current.num < num) current.dir = -1;
-        else if (current.num > num) current.dir = 1;
-        else current.dir = 0;
+        if (current.num < num){ current.dir = -1; }
+        else if (current.num > num){ current.dir = 1; }
+        else { current.dir = 0; }
 
 
         if (current.num === num) found = true;
@@ -87,5 +60,3 @@ function hilo() {
     function randomNum(max) {
         return Math.ceil(Math.random() * max);
     }
-
-}
